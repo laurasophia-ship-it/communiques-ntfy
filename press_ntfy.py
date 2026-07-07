@@ -25,7 +25,7 @@ SOURCES = {
         "allow": r"/apps/actualites/.*actu_id=",
     },
     "Ville de Renens": {
-        "url": "https://www.renens.ch/actualites",
+        "url": "https://www.renens.ch/officielle/actualites/",
         "allow": r"/actualites|/actualite|news|communique",
     },
     "Ville de Prilly": {
@@ -111,12 +111,25 @@ def extract_article(url, fallback_title):
 
 
 def notify(source_name, title, summary, url):
-    message = f"{source_name}\n\n{title}\n\n{summary}\n\n{url}"
+    # Remplace les caractères Unicode "exotiques"
+    title = title.replace("—", "-").replace("–", "-")
+    summary = summary.replace("—", "-").replace("–", "-")
+    source_name = source_name.replace("—", "-").replace("–", "-")
+
+    message = f"""{source_name}
+
+{title}
+
+{summary}
+
+{url}"""
+
     requests.post(
         f"https://ntfy.sh/{NTFY_TOPIC}",
         data=message.encode("utf-8"),
         headers={
-            "Title": f"Nouveau communiqué — {source_name}",
+            "Content-Type": "text/plain; charset=utf-8",
+            "Title": f"Nouveau communiqué - {source_name}",
             "Tags": "newspaper",
             "Priority": "3",
         },
