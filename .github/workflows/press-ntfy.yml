@@ -1,5 +1,9 @@
 name: Press releases to ntfy
 
+env:
+  LANG: "C.UTF-8"
+  LC_ALL: "C.UTF-8"
+
 on:
   schedule:
     - cron: "0 * * * *"
@@ -25,6 +29,11 @@ jobs:
 
       - name: Commit state
         run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add seen.json
+          git diff --cached --quiet || git commit -m "Update seen press releases"
+          git push
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add seen.json
