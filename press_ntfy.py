@@ -16,10 +16,10 @@ SOURCES = {
         "url": "https://www.vd.ch/actualites/communiques-de-presse-de-letat-de-vaud",
         "allow": r"/actualites/communiques-de-presse-de-letat-de-vaud/detail/communique/",
     },
-    "Police cantonale vaudoise": {
-        "url": "https://www.vd.ch/djes/polcant/medias/communiques-de-presse",
-        "allow": r"/djes/polcant/medias/communiques-de-presse/.+",
-    },
+   "Police cantonale vaudoise": {
+    "url": "https://www.vd.ch/djes/polcant/medias/communiques-de-presse",
+    "allow": r"/actualites/actualite/news/\d+-",
+},
     "Ville de Lausanne": {
         "url": "https://www.lausanne.ch/apps/actualites/",
         "allow": r"/apps/actualites/.*actu_id=",
